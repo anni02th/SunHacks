@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humidity and Temperature Prediction</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Humidity and Temperature Prediction</h1>
+        <div>
+            <label for="timestamp">Timestamp:</label>
+            <input type="text" id="timestamp" v-model="timestamp">
+            <button @click="predict">Predict</button>
+        </div>
+        <div v-if="prediction">
+            <h2>Prediction</h2>
+            <p>Humidity: {{ prediction.humidity }}</p>
+            <p>Temperature: {{ prediction.temperature }}</p>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                timestamp: '',
+                prediction: null
+            },
+            methods: {
+                predict() {
+                    axios.post('/predict', { timestamp: this.timestamp })
+                        .then(response => {
+                            this.prediction = response.data;
+                        })
+                        .catch(error => {
+                            console.error('Error predicting:', error);
+                        });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

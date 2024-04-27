@@ -4,10 +4,10 @@
 Cyber Pirates (SHA-30)
 
 ## Team Members
-- **Shivraj Talekar** (Lead)
-- Piyush Nashikkar
-- Aniket More
-- Suraj Mande
+- **Shivraj Talekar** (Lead - Softskills and Leadership)
+- **Piyush Nashikkar** (Developer - Comp Vision)
+- **Aniket More** (Machine Learning and Fullstack)
+- **Suraj Mande** (Frondend and Data Struture)
 
 ## Table of Contents
 - [Problem Statement](#problem-statement)

@@ -1,5 +1,14 @@
 # AI-Driven Smart HVAC Management
 
+## Team Name
+Cyber Pirates (SHA-30)
+
+## Team Members
+- **Shivraj Talekar** (Lead)
+- Piyush Nashikkar
+- Aniket More
+- Suraj Mande
+
 ## Table of Contents
 - [Problem Statement](#problem-statement)
 - [Theme](#theme)

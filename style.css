@@ -1,0 +1,27 @@
+*{
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+    }
+    #main-sc{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #main-sc #card-sc{
+        margin: 5vw;
+        height: 70vh;
+        width: 40vw;
+        background: linear-gradient(135deg,#fe5000,#5b548a);
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #card-sc i{
+        font-size: 15vw;
+        font-weight: 300;
+    }

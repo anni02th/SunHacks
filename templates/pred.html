@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Prediction</title>
+</head>
+<body>
+
+    <h1>Temperature Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="timestamp">Timestamp:</label><br>
+        <input type="datetime-local" id="timestamp" name="timestamp" value="2024-02-11T19:30" required><br><br>
+        <p>Accuracy: 0.94</p>
+        <button type="submit">Predict</button>
+    </form>
+    <h2>Prediction Result</h2>
+    <p>Predicted Humidity: {{ humidity }}</p>
+    <p>Predicted Temperature: {{ temperature }}</p>
+
+    <script>
+        function predictTemperature() {
+            var timestamp = document.getElementById("timestamp").value;
+            
+            // Send timestamp to server for prediction using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/predict", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var predictedHumidity = response.humidity;
+                    var predictedTemperature = response.temperature;
+                    var temperatureThreshold = 25; // Example threshold, adjust as needed
+
+                    document.getElementById("predictedHumidity").innerText = predictedHumidity;
+                    document.getElementById("predictedTemperature").innerText = predictedTemperature;
+
+                    if (predictedTemperature > temperatureThreshold) {
+                        document.getElementById("acTemperatureMessage").innerText = "Temperature is high. Adjusting AC temperature to 20°C.";
+                    } else {
+                        document.getElementById("acTemperatureMessage").innerText = "Temperature is normal. Maintaining AC temperature at 25°C.";
+                    }
+
+                    // Show the prediction result div
+                    document.getElementById("predictionResult").style.display = "block";
+                }
+            };
+            xhr.send(JSON.stringify({ timestamp: timestamp }));
+        }
+    </script>
+</body>
+</html>

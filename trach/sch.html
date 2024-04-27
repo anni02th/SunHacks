@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
+    <style>*{
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+    }
+    #main-sc{
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #main-sc #card-sc{
+        margin: 5vw;
+        height: 70vh;
+        width: 40vw;
+        background: linear-gradient(135deg,#fe5000,#5b548a);
+        border-radius: 1vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #card-sc i{
+        font-size: 15vw;
+        font-weight: 300;
+    }</style>
+</head>
+        <body>
+            <div id="main-sc">
+                <div id="card-sc">
+                    <i class="ri-cloud-line"></i>
+                    <h2>Day= <span>day</span></h2>
+                    <h2 class="time">Time= <span>time</span></h2>
+                    <h3>Ac status</h3>
+                </div>
+            </div>
+        
+            <script>
+                
+        function myfunction(){
+        let status1=0;
+        // Function to check if the current date is a Sunday or holiday (assuming holidays are predefined)
+        function isSundayOrHoliday(date) {
+            const day = date.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+            // Add conditions for holidays if needed
+            // For simplicity, let's assume Sunday is the only holiday
+            return day === 0;
+        }
+        
+        // Function to check if the current time is between 9 am and 5 pm
+        function isWorkingHours(date) {
+            const hours = date.getHours();
+            return hours >= 9 && hours < 17;
+        }
+        
+        // Function to determine whether the AC should be on or off based on current date and time
+        function shouldTurnOnAC() {
+            const currentDate = new Date();
+            
+            // Check if it's Sunday or a holiday
+            if (isSundayOrHoliday(currentDate)) {
+                return false; // Keep AC off
+            }
+            
+            // Check if it's working hours (9 am to 5 pm)
+            if (isWorkingHours(currentDate)) {
+                return true; // Turn AC on
+            }
+            
+            return false; // Keep AC off
+        }
+        
+        // Main function to display whether the AC should be on or off
+        function displayACStatus() {
+            const isACOn = shouldTurnOnAC();
+            if (isACOn) {
+                console.log("AC should be turned ON.");
+                status1=1;
+            } else {
+                console.log("AC should be turned OFF.");
+                status1=0;
+            }
+        }
+        
+        // Call the main function to display AC status
+        displayACStatus();
+        
+        const currentTime = (new Date()).toLocaleTimeString('en-US');
+        const currentDay = (new Date()).toLocaleDateString('en-US', { weekday: 'long' });
+        var main_sc= document.querySelector("#main-sc")
+        var card=document.querySelector("#card-sc h2 span")
+        var curTime=document.querySelector(".time span")
+        var acStatus=document.querySelector("#card-sc h3")
+        main_sc.addEventListener("mousemove",function(){
+            card.textContent=currentDay
+            curTime.textContent=currentTime
+            
+            if(status1==1)
+            {
+                acStatus.textContent="AC is On"
+            }
+            else{
+                acStatus.textContent="AC is Off"
+            }
+        })
+        }
+        setInterval(myfunction, 1000);
+        
+            </script>
+        
+</body>
+</html>

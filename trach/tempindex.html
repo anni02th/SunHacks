@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="./tailwind/output.css" />
     <link rel="stylesheet" href="main.css" />    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+
 </head>
 <body class="flex flex-col gap-0 bg-Twhite text-Bpurple w-[100vw] font-rubik">  
      <nav class="bg-Bpurple w-[100%] text-Twhite flex items-center justify-between font-rubik px-[50px] sm:h-[80px] lg:h-[60px]">
@@ -18,17 +21,18 @@
             <a href="index.html">Cyber Pirates</a>
         </div>
         <div class="hidden sm:flex flex-row flex-wrap flex-grow max-w-[700px] justify-between mx-12 lg:flex">
-            <a href="index.html" class="flex flex-col items-center text-xs"><i class="fab fa-facebook-f"></i></i><span>Home</span></a>
-            <a href="weat.html" class="flex flex-col items-center text-xs"><i class="fab fa-facebook-f"></i></i><span>Weather</span></a>
-            <a href="pred.html" class="flex flex-col items-center text-xs"><i class="fab fa-facebook-f"></i></i><span>Prediction</span></a>
-            <a href="svh.html" class="flex flex-col items-center text-xs"><i class="fab fa-facebook-f"></i></i><span>Scheduling</span></a>
+            <a href="index.html" class="flex flex-col items-center text-xs"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="weat.html" class="flex flex-col items-center text-xs"><i class="fa fa-street-view"></i><span>Weather</span></a>
+            <a href="pred.html" class="flex flex-col items-center text-xs"><i class="fa fa-bar-chart"></i><span>Prediction</span></a>
+            <a href="svh.html" class="flex flex-col items-center text-xs"><i class="fa fa-hourglass-half"></i><span>Scheduling</span></a>
             
         </div>
-        <a href="login.html"><i data-feather="user" class="size-10 relative left-3 mx-6 my-2 hidden sm:block"></i></a>
+        <a href="login.html"><i class="fa fa-clock"></i> History</a>
 
         <div class="flex items-center">
             <div id="hamburger" class="sm:hidden ml-4">
-                <i id="toggleSidebar" data-feather="menu" class="size-6 font-extrabold cursor-pointer font-white text-white"></i>
+                <!-- <i id="toggleSidebar" data-feather="menu" class="size-6 font-extrabold cursor-pointer font-white text-white"></i> -->
+                <i id="toggleSidebar" class="fa fa-th-list size-6 font-extrabold cursor-pointer font-white text-white"></i>
             </div>
         </div>
     </nav>
@@ -46,9 +50,21 @@
     <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
 
 
+    <div id="app" class="flex flex-col justify-center items-center mx-auto mt-8">
+        <h1 class="text-lg font-bold">Temperature Prediction</h1>
+        <div>
+            <label for="timestamp">Timestamp:</label>
+            <input type="datetime-local" id="timestamp" class="text-md p-1 rounded-md capitalize drop-shadow-md border-1 shadow-slate-300 w-[48%]">
+            <button onclick="predictTemperature()">Predict</button>
+        </div>
+        <div id="predictionResult" style="display: none;">
+            <h2>Predictions</h2>
+            <div id="predictions"></div>
+        </div>
+    </div>
 
-    <footer class="bg-Bpurple py-[30px] mt-[50px]">
-        <div class="max-w-[1170px] m-auto ">
+    <footer class="bg-Bpurple py-[30px] mt-[50px] absolute bottom-0">
+        <div class="w-[100vw] m-auto ">
             <div class="flex flex-wrap justify-center sm:flex-row ml-[1rem] ">
                 <div class="w-[50%] py-[15px] sm:w-[25%]">
                     <h4 class=" text-[18px] text-Twhite capitalize mb-[35px] font-medium relative border-b-2 border-green-400 max-w-[50px]">company</h4>
@@ -64,7 +80,6 @@
                     <ul class="list-none space-y-2">
                         <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">Help</a></li>
                         <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">Payment Options</a></li>
                     </ul>
                 </div>
                 
@@ -81,9 +96,24 @@
         </div>
     </footer>
 
-<script>
-
-    //2.
+    <script>
+        function predictTemperature() {
+            var timestamp = document.getElementById("timestamp").value;
+            axios.post('/predict', { timestamp: timestamp })
+                .then(function (response) {
+                    var predictions = response.data;
+                    var predictionsHtml = '';
+                    predictions.forEach(function (prediction, index) {
+                        predictionsHtml += '<div><h3>Dataset ' + (index + 1) + '</h3><p>Humidity: ' + prediction.humidity + '</p><p>Temperature: ' + prediction.temperature + '</p></div>';
+                    });
+                    document.getElementById("predictions").innerHTML = predictionsHtml;
+                    document.getElementById("predictionResult").style.display = "block";
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+            //2.
     // Function to toggle sidebar
     const toggleSidebar = () => {
         const sidebar = document.getElementById('sidebar');
@@ -101,6 +131,6 @@
     // Event listener for closing sidebar when "Close" link is clicked
     document.getElementById('closeSidebar').addEventListener('click', toggleSidebar);
 
-</script>
+    </script>
 </body>
 </html>

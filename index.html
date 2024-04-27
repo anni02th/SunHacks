@@ -3,44 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Humidity and Temperature Prediction</title>
+    <title>Cyber Pirates</title>
+    <link rel="icon" href="./Images/2.png" type="image/icon type"/>
+    <link rel="stylesheet" href="./tailwind/output.css" />
+    <link rel="stylesheet" href="main.css" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+
 </head>
-<body>
-    <div id="app">
-        <h1>Humidity and Temperature Prediction</h1>
-        <div>
-            <label for="timestamp">Timestamp:</label>
-            <input type="text" id="timestamp" v-model="timestamp">
-            <button @click="predict">Predict</button>
+<body class="flex flex-col gap-0 bg-Twhite text-Bpurple w-[100vw] font-rubik">  
+     <nav class="bg-Bpurple w-[100%] text-Twhite flex items-center justify-between font-rubik px-[50px] sm:h-[80px] lg:h-[60px]">
+        <div class="block sm:hidden">
+            <a href="javascript:history.back()"><i data-feather="arrow-left"></i></a>
         </div>
-        <div v-if="prediction">
-            <h2>Prediction</h2>
-            <p>Humidity: {{ prediction.humidity }}</p>
-            <p>Temperature: {{ prediction.temperature }}</p>
+        <div class="h-[auto] ">
+            <a href="index.html">Cyber Pirates</a>
         </div>
+        <div class="hidden sm:flex flex-row flex-wrap flex-grow max-w-[700px] justify-between mx-12 lg:flex">
+            <a href="index.html" class="flex flex-col items-center text-xs"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="weat.html" class="flex flex-col items-center text-xs"><i class="fa fa-street-view"></i><span>Weather</span></a>
+            <a href="./templates/pred.html" class="flex flex-col items-center text-xs"><i class="fa fa-bar-chart"></i><span>Prediction</span></a>
+            <a href="svh.html" class="flex flex-col items-center text-xs"><i class="fa fa-hourglass-half"></i><span>Scheduling</span></a>
+            
+        </div>
+        <a href="./templates/Hist.html"><i class="fa fa-clock"></i> History</a>
+
+        <div class="flex items-center">
+            <div id="hamburger" class="sm:hidden ml-4">
+                <!-- <i id="toggleSidebar" data-feather="menu" class="size-6 font-extrabold cursor-pointer font-white text-white"></i> -->
+                <i id="toggleSidebar" class="fa fa-th-list size-6 font-extrabold cursor-pointer font-white text-white"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- sidebar -->
+    <div id="sidebar" class="bg-gray-900 text-white h-full w-64 fixed top-0 right-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <ul class="py-8">
+            <li><a href="index.html" class="block px-4 py-2 text-sm hover:bg-gray-800">Home</a></li>
+            <li><a href="weat.html" class="block px-4 py-2 text-sm hover:bg-gray-800">Weather</a></li>
+            <li><a href="./templates/pred.html" class="block px-4 py-2 text-sm hover:bg-gray-800">Prediction</a></li>
+            <li><a href="svh.html" class="block px-4 py-2 text-sm hover:bg-gray-800">Scheduling</a></li>
+            <li><a href="./templates/Hist.html" class="block px-4 py-2 text-sm hover:bg-gray-800">History & Support</a></li>
+            <li><a href="#" id="closeSidebar" class="block px-4 py-2 text-sm hover:bg-gray-800">Close</a></li>
+        </ul>
     </div>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
+
+    <div class="m-6 w-[70%] flex self-center justify-center">
+        <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
+        padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+        border-radius: 8px; will-change: transform;">
+         <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+           src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGDd65rgxo&#x2F;h1siuhcNKcutoD02clcLTQ&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+         </iframe>
+       </div>
+       <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGDd65rgxo&#x2F;h1siuhcNKcutoD02clcLTQ&#x2F;view?utm_content=DAGDd65rgxo&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
+    </div>
+    
+
+    <footer class="bg-Bpurple py-[30px] mt-[50px] ">
+        <div class="w-[100vw] m-auto ">
+            <div class="flex flex-wrap justify-center sm:flex-row ml-[1rem] ">
+                <div class="w-[50%] py-[15px] sm:w-[25%]">
+                    <h4 class=" text-[18px] text-Twhite capitalize mb-[35px] font-medium relative border-b-2 border-green-400 max-w-[50px]">company</h4>
+                    <ul class="space-y-2 ">
+                        <li class="mb-2"><a href="#" class="text-base capitalize no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">about us</a></li>
+                        <li class="mb-2"><a href="#" class="text-base capitalize no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">our services</a></li>
+                        <li class="mb-2"><a href="#" class="text-base capitalize no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="w-[50%] py-[15px] sm:w-[25%]">
+                    <h4 class=" text-[18px] text-Twhite capitalize mb-[35px] font-medium relative border-b-2 border-green-400 max-w-[50px]	"> <pre class="font-poppins font-medium">Get Help</pre></h4>
+                    <ul class="list-none space-y-2">
+                        <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">Help</a></li>
+                        <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-base no-underline font-light text-Bpink block transition-all duration-300 ease-in-out hover:text-Twhite hover:pl-[8px]">History</a></li>
+                    </ul>
+                </div>
+                
+                <div class=" py-[15px] sm:w-[25%]">
+                    <h4 class="text-[18px] text-Twhite capitalize mb-[35px] font-medium relative border-b-2 border-green-400 max-w-[50px] "><pre class="font-poppins font-medium">Follow Us</pre></h4>
+                    <div class="flex gap-2 flex-wrap">
+                        <a href="#" class="flex items-center justify-center h-10 w-10 bg-[#ffffff33] rounded-full text-white hover:text-gray-900 hover:bg-Twhite transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="flex items-center justify-center h-10 w-10 bg-[#ffffff33] rounded-full text-white hover:text-gray-900 hover:bg-Twhite transition-all duration-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="flex items-center justify-center h-10 w-10 bg-[#ffffff33] rounded-full text-white hover:text-gray-900 hover:bg-Twhite transition-all duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="flex items-center justify-center h-10 w-10 bg-[#ffffff33] rounded-full text-white hover:text-gray-900 hover:bg-Twhite transition-all duration-300"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                timestamp: '',
-                prediction: null
-            },
-            methods: {
-                predict() {
-                    axios.post('/predict', { timestamp: this.timestamp })
-                        .then(response => {
-                            this.prediction = response.data;
-                        })
-                        .catch(error => {
-                            console.error('Error predicting:', error);
-                        });
-                }
-            }
-        });
+        
+            //2.
+    // Function to toggle sidebar
+    const toggleSidebar = () => {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar.classList.toggle('translate-x-full');
+        overlay.classList.toggle('hidden');
+    };
+
+    // Event listener for toggling sidebar
+    document.getElementById('toggleSidebar').addEventListener('click', toggleSidebar);
+
+    // Event listener for closing sidebar when clicking outside of it
+    document.getElementById('sidebar-overlay').addEventListener('click', toggleSidebar);
+
+    // Event listener for closing sidebar when "Close" link is clicked
+    document.getElementById('closeSidebar').addEventListener('click', toggleSidebar);
+
     </script>
 </body>
 </html>
